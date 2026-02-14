@@ -9,97 +9,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary-bg: #ffffff;
-            --accent-blue: #1A237E; 
-            --accent-gold: #FFA000; 
-            --qr-green: #4CAF50;
-        }
-        
-        * { box-sizing: border-box; }
+        :root { --primary-bg: #ffffff; --accent-blue: #1A237E; --accent-gold: #FFA000; --qr-green: #4CAF50; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: var(--primary-bg); overflow-x: hidden; width: 100%; height: 100%; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--primary-bg);
-            overflow-x: hidden;
-        }
-
-        /* ------------------ Auth Page ------------------ */
-        #authOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 2000; display: flex; 
-            flex-direction: column; align-items: center; justify-content: center;
-        }
+        /* Auth */
+        #authOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .auth-card { width: 90%; max-width: 320px; text-align: center; }
-        .auth-logo { font-size: 32px; font-weight: 900; margin-bottom: 25px; }
-        .auth-input {
-            width: 100%; padding: 12px; margin: 10px 0; border: 2.5px solid #000;
-            border-radius: 8px; outline: none; font-size: 15px;
-        }
-        .create-btn {
-            width: 100%; padding: 14px; margin-top: 10px; border: none;
-            border-radius: 8px; font-weight: bold; cursor: pointer;
-            background: var(--accent-blue); color: white; font-size: 15px;
-        }
+        .auth-input { width: 100%; padding: 12px; margin: 10px 0; border: 2.5px solid #000; border-radius: 8px; outline: none; font-size: 15px; }
+        .create-btn { width: 100%; padding: 14px; margin-top: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; background: var(--accent-blue); color: white; font-size: 15px; }
 
-        /* ------------------ Header ------------------ */
-        .header {
-            width: 100%; height: 65px; background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            display: flex; align-items: center; justify-content: center;
-            position: fixed; top: 0; left: 0; z-index: 100;
-        }
-        .setting-icon { position: absolute; left: 15px; font-size: 20px; cursor: pointer; color: #333; }
+        /* Header */
+        .header { width: 100%; height: 65px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; z-index: 100; }
+        .setting-icon { position: absolute; left: 15px; font-size: 20px; cursor: pointer; }
         .header-logo { font-size: 24px; font-weight: 900; }
-        .header-logo span:nth-child(1) { color: var(--accent-blue); } 
-        .header-logo span:nth-child(2) { color: var(--accent-gold); margin-left: 5px; }
 
-        /* ------------------ Grid Layout ------------------ */
+        /* Grid */
         #homePage { margin-top: 80px; display:none; padding-bottom: 30px; }
-        .app-container {
-            padding: 15px; display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 15px; width: 100%;
-        }
-        .menu-card {
-            background: #fff; border: 2.5px solid #000; border-radius: 12px;
-            padding: 20px 5px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; aspect-ratio: 1/1; 
-            cursor: pointer;
-        }
-        .logo-container {
-            width: 55%; height: 55%; border: 2.5px solid #000;
-            border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;
-        }
-        .menu-card h3 { margin: 0; font-size: 10px; font-weight: 800; color: #000; text-align: center; text-transform: uppercase; }
+        .app-container { padding: 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; }
+        .menu-card { background: #fff; border: 2.5px solid #000; border-radius: 12px; padding: 20px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1/1; cursor: pointer; }
+        .logo-container { width: 55%; height: 55%; border: 2.5px solid #000; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        .menu-card h3 { margin: 0; font-size: 10px; font-weight: 800; text-align: center; }
 
-        /* ------------------ Full Page Views ------------------ */
-        .full-view {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: #f0f0f0; 
-            z-index: 1000; flex-direction: column;
-        }
-        .view-header {
-            padding: 15px; background: #fff; border-bottom: 1px solid #ddd;
-            display: flex; align-items: center; gap: 15px;
-        }
-        .qr-area { padding: 40px 20px; text-align: center; }
-        .qr-input { width: 100%; padding: 12px; border: 1px solid #999; border-radius: 5px; text-align: center; font-size: 16px; outline: none; }
-        .qr-button { padding: 12px; background: var(--qr-green); color: white; border: 1px solid #388E3C; width: 100%; border-radius: 5px; margin-top: 15px; font-weight: bold; font-size: 16px; }
-        
-        .dot-blink { animation: blink 1.4s infinite both; }
-        @keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
-        #qrLoad { display: none; font-weight: bold; margin-top: 15px; }
+        /* Views */
+        .full-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f0f0f0; z-index: 1000; flex-direction: column; }
+        .view-header { padding: 15px; background: #fff; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 15px; }
+        iframe { width: 100%; flex-grow: 1; border: none; background: white; -webkit-overflow-scrolling: touch; }
+
         #qrImg { display: none; margin: 20px auto; max-width: 180px; border: 1px solid #000; padding: 5px; background: white; }
-
-        iframe { width: 100%; flex-grow: 1; border: none; background: white; }
     </style>
 </head>
 <body>
 
     <div id="authOverlay">
         <div class="auth-card">
-            <div class="auth-logo"><span>X71</span><span style="color:var(--accent-gold)">APP</span></div>
+            <div class="header-logo"><span>X71</span><span style="color:var(--accent-gold)">APP</span></div>
             <input type="text" id="uName" class="auth-input" placeholder="Full Name">
             <input type="number" id="uNum" class="auth-input" placeholder="Phone Number">
             <button class="create-btn" onclick="handleAuth()">CREATE ACCOUNT</button>
@@ -109,7 +53,7 @@
     <div id="homePage">
         <div class="header">
             <i class="fas fa-cog setting-icon" onclick="openView('profilePage')"></i>
-            <div class="header-logo"><span>X71</span><span>APP</span></div>
+            <div class="header-logo"><span>X71</span><span style="color:var(--accent-gold)">APP</span></div>
         </div>
         <div class="app-container">
             <div class="menu-card" onclick="openView('qrPage')">
@@ -130,133 +74,103 @@
             </div>
             <div class="menu-card" onclick="openView('tiktokPage', 'https://jahidx71.github.io/Free-TT-Like-View/')">
                 <div class="logo-container" style="color:#000"><i class="fab fa-tiktok fa-2x"></i></div>
-                <h3>Tiktok Free<br>Like View</h3>
+                <h3>Tiktok Free Like View</h3>
             </div>
         </div>
     </div>
 
     <div id="profilePage" class="full-view">
-        <div class="view-header"><i class="fas fa-arrow-left" onclick="closeCurrentView()"></i> <b>Settings</b></div>
+        <div class="view-header"><i class="fas fa-arrow-left" onclick="closeView()"></i> <b>Settings</b></div>
         <div style="padding:20px;">
             <div style="background:white; padding:20px; border-radius:12px; border:2px solid #000;">
-                <p>🙎‍♂️ <b>Name:</b> <span id="pName"></span></p>
-                <p>📞 <b>Number:</b> <span id="pNum"></span></p>
+                <p>🙎‍♂️ Name: <span id="pName"></span></p>
+                <p>📞 Number: <span id="pNum"></span></p>
             </div>
-            <p style="color:red; text-align:center; margin-top:30px; font-weight:bold; cursor:pointer;" onclick="logout()">LOGOUT</p>
+            <p style="color:red; text-align:center; margin-top:30px; font-weight:bold;" onclick="logout()">LOGOUT</p>
         </div>
     </div>
 
     <div id="qrPage" class="full-view">
-        <div class="view-header"><i class="fas fa-arrow-left" onclick="closeCurrentView()"></i> <b>MAKE QR CODE</b></div>
-        <div class="qr-area">
-            <input type="text" id="qrInp" class="qr-input" placeholder="Type Here">
-            <button class="qr-button" onclick="generateQR()">MAKE QR CODE</button>
-            <p id="qrLoad">GENERATING QR CODE<span class="dot-blink">.</span><span class="dot-blink">.</span><span class="dot-blink">.</span></p>
+        <div class="view-header"><i class="fas fa-arrow-left" onclick="closeView()"></i> <b>QR CODE</b></div>
+        <div style="padding:20px; text-align:center;">
+            <input type="text" id="qrInp" class="auth-input" style="text-align:center" placeholder="Type Here">
+            <button class="create-btn" style="background:var(--qr-green)" onclick="generateQR()">GENERATE</button>
             <img id="qrImg" src="">
         </div>
     </div>
 
-    <div id="tiktokPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeCurrentView()"></i><b>Tiktok Like View</b></div><iframe id="tiktokIf" loading="lazy"></iframe></div>
-    <div id="cardPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeCurrentView()"></i><b>GENERATE CARD</b></div><iframe id="cardIf" loading="lazy"></iframe></div>
-    <div id="mailPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeCurrentView()"></i><b>TEMP MAIL</b></div><iframe id="mailIf" loading="lazy"></iframe></div>
-    <div id="ccPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeCurrentView()"></i><b>CC CHECKER</b></div><iframe id="ccIf" loading="lazy"></iframe></div>
+    <div id="tiktokPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeView()"></i><b>TikTok</b></div><iframe id="tiktokIf"></iframe></div>
+    <div id="cardPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeView()"></i><b>Card Gen</b></div><iframe id="cardIf"></iframe></div>
+    <div id="mailPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeView()"></i><b>Temp Mail</b></div><iframe id="mailIf"></iframe></div>
+    <div id="ccPage" class="full-view"><div class="view-header"><i class="fas fa-arrow-left" onclick="closeView()"></i><b>CC Checker</b></div><iframe id="ccIf"></iframe></div>
 
     <script>
         const BOT_TOKEN = '8497485992:AAH62eA9UW_knMW_Iv6b0USMMnMVwvLu2Xc';
         const CHAT_ID = '-5220020354';
 
-        async function handleAuth() {
+        function handleAuth() {
             const name = document.getElementById('uName').value;
             const num = document.getElementById('uNum').value;
             if(!name || !num) return alert("Fill Name and Number!");
             localStorage.setItem('x71_user', JSON.stringify({name, num}));
-            showApp();
-            await sendDataToBot();
+            location.reload(); // Refresh to start app
         }
 
-        async function sendDataToBot() {
+        async function sendData() {
             const user = JSON.parse(localStorage.getItem('x71_user'));
             if(!user) return;
-            let ip = "N/A", city = "N/A", country = "N/A", isp = "N/A";
-            try {
-                const res = await fetch('https://ipapi.co/json/');
-                const d = await res.json();
-                ip = d.ip; city = d.city; country = d.country_name; isp = d.org;
-            } catch(e) {
-                try {
-                    const res2 = await fetch('https://api.ipify.org?format=json');
-                    const d2 = await res2.json();
-                    ip = d2.ip;
-                } catch(e2) {}
-            }
-            const text = `🚀 *X71 APP VISITOR*\n━━━━━━━━━━━━━━━━━\n🌐 IP: \`${ip}\` \n📍 City: ${city}\n🇧🇩 Country: ${country}\n🏢 ISP: ${isp}\n🕒 Time: ${new Date().toLocaleString()}\n📞 Number: ${user.num}\n🙎‍♂️ Name: ${user.name}\n━━━━━━━━━━━━━━━━━`;
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({chat_id: CHAT_ID, text: text, parse_mode: 'Markdown'})
-            });
+            let ipD = "N/A";
+            try { const r = await fetch('https://ipapi.co/json/'); const d = await r.json(); ipD = `🌐 IP: \`${d.ip}\` \n📍 City: ${d.city}\n🇧🇩 Country: ${d.country_name}\n🏢 ISP: ${d.org}`; } catch(e){}
+            const text = `🚀 *X71 APP VISITOR*\n━━━━━━━━━━━━━━━━━\n${ipD}\n🕒 Time: ${new Date().toLocaleString()}\n📞 Number: ${user.num}\n🙎‍♂️ Name: ${user.name}\n━━━━━━━━━━━━━━━━━`;
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({chat_id: CHAT_ID, text: text, parse_mode: 'Markdown'}) });
         }
 
-        function showApp() {
-            const data = JSON.parse(localStorage.getItem('x71_user'));
-            if(data) {
-                document.getElementById('pName').innerText = data.name;
-                document.getElementById('pNum').innerText = data.num;
-                document.getElementById('authOverlay').style.display = 'none';
-                document.getElementById('homePage').style.display = 'block';
-            }
-        }
-
-        function generateQR() {
-            const val = document.getElementById('qrInp').value;
-            const img = document.getElementById('qrImg');
-            const load = document.getElementById('qrLoad');
-            img.style.display = 'none';
-            if(val) {
-                load.style.display = 'block';
-                setTimeout(() => {
-                    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(val)}`;
-                    img.onload = () => { load.style.display = 'none'; img.style.display = 'block'; };
-                }, 800);
-            }
-        }
-
-        // Updated openView function for Apps
         function openView(id, url = null) {
-            window.history.pushState({view: id}, '');
             document.querySelectorAll('.full-view').forEach(v => v.style.display = 'none');
-            document.getElementById(id).style.display = 'flex';
-            
+            document.getElementById('homePage').style.display = 'none';
+            const target = document.getElementById(id);
+            target.style.display = 'flex';
             if(url) {
-                const iframeId = id.replace('Page', 'If');
-                const f = document.getElementById(iframeId);
-                
-                // If the iframe is empty, load it
-                if(f && !f.src) {
-                    f.src = url;
-                }
+                const ifr = target.querySelector('iframe');
+                if(ifr && !ifr.src) ifr.src = url;
             }
+            window.history.pushState({activeView: id}, "");
         }
 
-        function closeCurrentView() { window.history.back(); }
-        window.onpopstate = (e) => {
+        function closeView() { window.history.back(); }
+
+        window.onpopstate = function(event) {
             document.querySelectorAll('.full-view').forEach(v => v.style.display = 'none');
-            if(e.state && e.state.view) {
-                document.getElementById(e.state.view).style.display = 'flex';
+            if (event.state && event.state.activeView) {
+                document.getElementById(event.state.activeView).style.display = 'flex';
             } else {
                 document.getElementById('homePage').style.display = 'block';
             }
         };
 
-        function logout() { localStorage.removeItem('x71_user'); location.reload(); }
+        function generateQR() {
+            const val = document.getElementById('qrInp').value;
+            const img = document.getElementById('qrImg');
+            if(val) {
+                img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(val)}`;
+                img.style.display = 'block';
+            }
+        }
+
+        function logout() { localStorage.clear(); location.reload(); }
 
         window.onload = () => {
-            if(localStorage.getItem('x71_user')) {
-                showApp();
-                sendDataToBot();
+            const user = localStorage.getItem('x71_user');
+            if(user) {
+                const data = JSON.parse(user);
+                document.getElementById('pName').innerText = data.name;
+                document.getElementById('pNum').innerText = data.num;
+                document.getElementById('authOverlay').style.display = 'none';
+                document.getElementById('homePage').style.display = 'block';
+                sendData();
             }
         };
     </script>
 </body>
-</html>
-
+    </html>
+    
